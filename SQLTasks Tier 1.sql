@@ -138,7 +138,15 @@ select m.firstname, m.surname as person, r.firstname as recommendfirst,r.surname
         order by m.surname
 
 /* Q12: Find the facilities with their usage by member, but not guests */
-
+SELECT count(*), members.firstname,members.surname  from bookings as b
+        inner join facilities on b.facid=facilities.facid
+        inner join members on members.memid=b.memid
+        where members.memid>0
+        group by members.memid
 
 /* Q13: Find the facilities usage by month, but not guests */
-
+SELECT  count(*),strftime('%m', date(b.starttime)) as mm  from bookings as b
+        inner join facilities on b.facid=facilities.facid
+        inner join members on members.memid=b.memid
+        where members.memid>0
+        group by mm
